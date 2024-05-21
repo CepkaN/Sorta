@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<ctime>
 #include<algorithm>
 #include<cmath>
@@ -25,8 +25,23 @@ void binarka(int* mass, int l, int r, int k) {
 		if (mass[mid] > k)r = mid - 1;
 		else l = mid + 1;
 	}
-	if (fla)std::cout << "Çíà÷åíèå " << k << " ïîçèöèÿ " << mid << '\n';
-	else { std::cout << "\n íåò çíà÷åíèÿ \n"; }
+	if (fla)std::cout << "Ð—Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ " << k << " Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ñ " << mid << '\n';
+	else { std::cout << "\n Ð½ÐµÑ‚ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ \n"; }
+}
+void Shell(int* mass, int n) {
+	int d = n/2;
+	while (d > 0) {
+		for (int i = 0; i < n - d; ++i) {
+			int j = i;
+			while (j >= 0 && mass[j] > mass[j + d]) {
+				int cou = mass[j];
+				mass[j] = mass[j + d];
+				mass[j + d] = cou;
+				--j;
+			}
+		}d /= 2;
+	}
+
 }
 int main() {
 	setlocale(LC_ALL, "Ru");
@@ -37,9 +52,9 @@ int main() {
 		mass[i] = 10 + rand() % 100;
 	}
 	voila(mass); std::cout << '\n';
-	//ÑÎÐÒÈÐÎÂÊÈ!!
+	//Ð¡ÐžÐ Ð¢Ð˜Ð ÐžÐ’ÐšÐ˜!!
 
-	// ÏÓÇÛÐÜÊÎÂÀß ÑÎÐÒÈÐÎÂÊÀ 
+	// ÐŸÐ£Ð—Ð«Ð Ð¬ÐšÐžÐ’ÐÐ¯ Ð¡ÐžÐ Ð¢Ð˜Ð ÐžÐ’ÐšÐ 
 
 	/*for (int i = 0; i < CST; ++i) {
 		for (int j = 0; j < CST - 1; ++j) {
@@ -50,10 +65,10 @@ int main() {
 			}
 		}
 	}
-	std::cout << "ÎÒÑÎÐÒÈÐÎÂÀÍÎ\n";
+	std::cout << "ÐžÐ¢Ð¡ÐžÐ Ð¢Ð˜Ð ÐžÐ’ÐÐÐž\n";
 	voila(mass); std::cout << '\n';*/
 
-	// ØÅÉÊÅÐ
+	// Ð¨Ð•Ð™ÐšÐ•Ð 
 
 	/*for (int i = 0; i < CST; ++ i) {
 		bool fl = true;
@@ -78,7 +93,7 @@ int main() {
 		--r;
 	}*/
 
-	// ÑÎÐÒÈÐÎÂÊÀ ÂÑÒÀÂÊÀÌÈ
+	// Ð¡ÐžÐ Ð¢Ð˜Ð ÐžÐ’ÐšÐ Ð’Ð¡Ð¢ÐÐ’ÐšÐÐœÐ˜
 
 	/*int j, i;
 	for (i = 1; i < CST; ++i) {
@@ -89,7 +104,7 @@ int main() {
 		mass[j + 1] = s;
 	}*/
 
-	// ÑÎÐÒÈÐÎÂÊÀ ÂÛÁÎÐÎÌ
+	// Ð¡ÐžÐ Ð¢Ð˜Ð ÐžÐ’ÐšÐ Ð’Ð«Ð‘ÐžÐ ÐžÐœ
 
 	/*int min;
 	for (int i = 0; i < CST; ++i) {
@@ -100,19 +115,24 @@ int main() {
 		if (i != min) { std::swap(mass[i], mass[min]); }
 	}*/
 
-	// ÁÛÑÒÐÀß ÑÎÐÒÈÐÎÂÊÀ
+	// Ð‘Ð«Ð¡Ð¢Ð ÐÐ¯ Ð¡ÐžÐ Ð¢Ð˜Ð ÐžÐ’ÐšÐ
 
-	QS(mass, 0, 9);
+	//QS(mass, 0, 9);
 
-	std::cout << "ÎÒÑÎÐÒÈÐÎÂÀÍÎ\n";
+
+	// Ð¡ÐžÐ Ð¢Ð˜Ð ÐžÐ’ÐšÐ Ð¨Ð•Ð›Ð›Ð
+
+	Shell(mass, 10);
+
+	std::cout << "ÐžÐ¢Ð¡ÐžÐ Ð¢Ð˜Ð ÐžÐ’ÐÐÐž\n";
 	voila(mass);
 
-	// ÁÈÍÀÐÍÛÉ ÏÎÈÑÊ
+	// Ð‘Ð˜ÐÐÐ ÐÐ«Ð™ ÐŸÐžÐ˜Ð¡Ðš
 
-	std::cout << "\n ×òî èùåì : ";
+	std::cout << "\n Ð§Ñ‚Ð¾ Ð¸Ñ‰ÐµÐ¼ : ";
 	int kl; std::cin >> kl;
 	binarka(mass, 0, 9, kl);
-
+	
 
 
 
