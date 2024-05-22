@@ -43,6 +43,17 @@ void Shell(int* mass, int n) {
 	}
 
 }
+
+void Gnomesort(int n, int* mass) {
+	int i = 1, j = 2;
+	while (i < n) {
+		if (i==0||mass[i - 1] <= mass[i]) { i = j; ++j; }
+		else {
+			std::swap(mass[i - 1], mass[i]);
+			--i;
+		}
+	}
+}
 int main() {
 	setlocale(LC_ALL, "Ru");
 	srand(time(NULL));
@@ -122,7 +133,11 @@ int main() {
 
 	// СОРТИРОВКА ШЕЛЛА
 
-	Shell(mass, 10);
+	//Shell(mass, 10);
+
+	// ГНОМЬЯ СОРТИРОВКА
+
+	Gnomesort(10, mass);
 
 	std::cout << "ОТСОРТИРОВАНО\n";
 	voila(mass);
