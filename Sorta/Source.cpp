@@ -2,6 +2,7 @@
 #include<ctime>
 #include<algorithm>
 #include<cmath>
+#include<array>
 
 #define voila(b) for(auto&y:b){std::cout<<y<<' ';}
 
@@ -74,6 +75,36 @@ void heapSort(int* mass, int n) {
 	for (int i = n - 1; i >= 0; --i) {
 		std::swap(mass[0], mass[i]);
 		heapify(mass, i, 0);
+	}
+}
+int Maximum(int* mass, int n) {
+	int mx = mass[0];
+	for (int i = 1; i < n; ++i) {
+		if (mass[i] > mx) {
+			mx = mass[i];
+		}
+	}return mx;
+}
+void couSort(int* mass, int n, int ex){
+	int* mr = new int[n], *cou = new int[10] {0};
+	for (int i = 0; i < n; ++i) {
+		cou[(mass[i] / ex) % 10]++;
+	}
+	for (int i = 1; i < 10; ++i) {
+		cou[i] += cou[i - 1];
+	}
+	for (int i = n - 1; i >= 0; --i) {
+		mr[cou[(mass[i] / ex) % 10] - 1] = mass[i];
+		cou[(mass[i] / ex) % 10]--;
+	}
+	for (int i = 0; i < n; ++i) {
+		mass[i] = mr[i];
+	}
+}
+void RadixSort(int* mass, int n) {
+	int m = Maximum(mass, n);
+	for (int ex = 1; m / ex > 0; ex *= 10) {
+		couSort(mass, n, ex);
 	}
 }
 int main() {
@@ -163,7 +194,11 @@ int main() {
 
 	// ПИРАМИДАЛЬНАЯ СОРТИРОВКА
 
-	heapSort(mass, 10);
+	//heapSort(mass, 10);
+
+	// ПОРАЗРЯДНАЯ СОРТИРОВКА
+
+	RadixSort(mass,10);
 
 	std::cout << "ОТСОРТИРОВАНО\n";
 	voila(mass);
