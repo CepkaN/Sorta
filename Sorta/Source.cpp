@@ -54,6 +54,28 @@ void Gnomesort(int n, int* mass) {
 		}
 	}
 }
+
+void heapify(int* mass, int n,int i) {
+	int larg = i;
+	int g = 2 * i + 1;
+	int d = 2 * i + 2;
+	if (g<n && mass[g]>mass[larg]) { larg = g; }
+	if (d<n && mass[d]>mass[larg]) { larg = d; }
+	if (larg != i) {
+		std::swap(mass[i], mass[larg]);
+		heapify(mass, n, larg);
+	}
+}
+
+void heapSort(int* mass, int n) {
+	for (int i = n / 2 - 1; i >= 0; --i) {
+		heapify(mass, n, i);
+	}
+	for (int i = n - 1; i >= 0; --i) {
+		std::swap(mass[0], mass[i]);
+		heapify(mass, i, 0);
+	}
+}
 int main() {
 	setlocale(LC_ALL, "Ru");
 	srand(time(NULL));
@@ -137,7 +159,11 @@ int main() {
 
 	// ГНОМЬЯ СОРТИРОВКА
 
-	Gnomesort(10, mass);
+	//Gnomesort(10, mass);
+
+	// ПИРАМИДАЛЬНАЯ СОРТИРОВКА
+
+	heapSort(mass, 10);
 
 	std::cout << "ОТСОРТИРОВАНО\n";
 	voila(mass);
